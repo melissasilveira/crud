@@ -10,21 +10,23 @@ import {
   Paper,
   Container,
   Fab,
+  IconButton,
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit'
 
-import { getTasks, deleteTask } from '../services/tasks'
+import { getTasks } from '../services/tasks'
+import AlertDialog from '../components/delete'
 
 function Home() {
   const navigate = useNavigate()
-  const [tasks, setTasks] = useState()
+  const [tasks, setTasks] = useState([])
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const { data } = await getTasks()
         setTasks(data.tasks)
-        console.log(data)
       } catch {
         console.log('Ocorreu um erro ao buscar as tarefas.')
       }
@@ -44,7 +46,27 @@ function Home() {
               <TableCell>Ações</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody></TableBody>
+          <TableBody>
+            {tasks.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">
+                  {row.title}
+                </TableCell>
+                <TableCell>{row.description}</TableCell>
+                <TableCell>
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => {
+                      navigate(`/edit/${row.id}`)
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <AlertDialog id={row.id} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
       <Fab

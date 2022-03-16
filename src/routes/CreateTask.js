@@ -1,10 +1,12 @@
+import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { TextField, Button } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { taskSchema } from '../schemas/auth'
-import React from 'react'
+import { postTask } from '../services/tasks'
 
 function CreateTask() {
   const {
@@ -15,8 +17,16 @@ function CreateTask() {
     resolver: yupResolver(taskSchema),
   })
 
-  const handleCreate = (data) => {
-    console.log(data)
+  const handleCreate = async (body) => {
+    try {
+      await postTask(body)
+      toast.success('Tarefa criada com sucesso.', {
+        position: toast.POSITION.TOP_CENTER,
+      })
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const navigate = useNavigate()

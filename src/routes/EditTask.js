@@ -1,25 +1,53 @@
+import React, { useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { TextField, Button } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { taskSchema } from '../schemas/auth'
-import React from 'react'
+import { getTask, editTask } from '../services/tasks'
 
 function EditTask() {
+  const navigate = useNavigate()
+  const { id } = useParams()
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      try {
+        const { data } = await getTask(id)
+        setValue('title', data.task.title, { shouldValidate: true })
+        setValue('description', data.task.description, { shouldValidate: true })
+      } catch (error) {
+        console.log('Ocorreu um erro ao buscar a tarefa.')
+        console.log(error)
+      }
+    }
+    fetchTask()
+  }, [id])
+
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(taskSchema),
   })
 
-  const handleEdit = () => {
-    console.log(handleEdit)
+  const handleEdit = async (body) => {
+    try {
+      await editTask(id, body)
+      toast.success('Tarefa editada com sucesso.', {
+        position: toast.POSITION.TOP_CENTER,
+      })
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+      console.log('body: ', body)
+      console.log('id: ', id)
+    }
   }
-
-  const navigate = useNavigate()
 
   return (
     <React.Fragment>

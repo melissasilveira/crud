@@ -6,14 +6,18 @@ export const getTasks = () => {
   return client.get(`/${apiCode}`)
 }
 
-export const editTask = () => {
-  return client.put(`/${apiCode}`)
+export const getTask = (id) => {
+  return client.get(`/${apiCode}/${id}`)
 }
 
-export const postTask = () => {
-  return client.post(`/${apiCode}`)
+export const editTask = (id, body) => {
+  return client.put(`/${apiCode}/${id}`, body)
 }
 
-export const deleteTask = () => {
-  return client.delete(`/${apiCode}`)
+export const postTask = (data) => {
+  return client.post(`/${apiCode}`, data)
+}
+
+export const deleteTask = (id) => {
+  return client.delete(`/${apiCode}/${id}`)
 }
