@@ -6,10 +6,10 @@ A proposta é que você desenvolva uma aplicação de Lista de Tarefas, onde é 
 API
 Será disponibilizada uma API para que seja possível manipular os recursos de tarefa. A API permite no máximo 20 registros. As respostas da API informam sucesso ou o erro que o usuário deverá corrigir.
 End Points da API:
-POST: https://otterwise-fake-api.herokuapp.com/tasks/
-PUT: https://otterwise-fake-api.herokuapp.com/tasks//
-DELETE: https://otterwise-fake-api.herokuapp.com/tasks/
-GET: https://otterwise-fake-api.herokuapp.com/tasks/
+POST: https://otterwise-fake-api.herokuapp.com/tasks/<apiCode>
+PUT: https://otterwise-fake-api.herokuapp.com/tasks/<apiCode>/<taskID>
+DELETE: https://otterwise-fake-api.herokuapp.com/tasks/<apiCode>/<taskID>
+GET: https://otterwise-fake-api.herokuapp.com/tasks/<apiCode>
 
 Página Inicial
 A página inicial deve ter uma tabela com a listagem de tarefas. A tabela deve ter três colunas: Título, Descrição e Ações. Cada linha da tabela será preenchida com: Título da tarefa, descrição da tarefa e os botões de ações (Editar e Deletar). A página deve conter um botão responsável por criar novas tarefas, este botão deve abrir uma nova página de criação de tarefa.
