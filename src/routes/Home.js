@@ -4,6 +4,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  tableCellClasses,
   TableContainer,
   TableHead,
   TableRow,
@@ -17,6 +18,8 @@ import EditIcon from '@mui/icons-material/Edit'
 
 import { getTasks } from '../services/tasks'
 import AlertDialog from '../components/delete'
+
+import styled from '@emotion/styled'
 
 function Home() {
   const navigate = useNavigate()
@@ -35,15 +38,15 @@ function Home() {
   }, [])
 
   return (
-    <Container>
-      <h1>Lista de Tarefas</h1>
-      <TableContainer component={Paper}>
+    <FlexContainer>
+      <Title>Lista de Tarefas</Title>
+      <StyledTableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell>Tarefa</TableCell>
-              <TableCell>Descrição</TableCell>
-              <TableCell>Ações</TableCell>
+              <StyledTableCell>Tarefa</StyledTableCell>
+              <StyledTableCell>Descrição</StyledTableCell>
+              <StyledTableCell>Ações</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,7 +71,7 @@ function Home() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </StyledTableContainer>
       <Fab
         color="secondary"
         variant="extended"
@@ -80,8 +83,30 @@ function Home() {
         <AddIcon />
         Criar Tarefa
       </Fab>
-    </Container>
+    </FlexContainer>
   )
 }
+
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  color: #4e4a4a;
+  padding: 30px;
+`
+
+const FlexContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+`
+const StyledTableContainer = styled(TableContainer)`
+  margin-bottom: 30px;
+`
+const StyledTableCell = styled(TableCell)`
+  background-color: #ab47bc;
+  color: #ffffff;
+  text-align: justify;
+`
 
 export default Home
