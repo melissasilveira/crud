@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 
 import { deleteTask } from '../services/tasks'
 
-function AlertDialog(props) {
+function DeleteAlertDialog(props) {
   const [open, setOpen] = useState(false)
   const handleClickOpen = () => {
     setOpen(true)
@@ -23,8 +23,8 @@ function AlertDialog(props) {
   const handleDelete = async () => {
     try {
       await deleteTask(props.id)
-      console.log(props.id)
       setOpen(false)
+      props.shouldRefetch()
     } catch (error) {
       toast.error('Ocorreu um erro ao tentar cadastrar.')
       console.log(error)
@@ -57,4 +57,4 @@ function AlertDialog(props) {
   )
 }
 
-export default AlertDialog
+export default DeleteAlertDialog

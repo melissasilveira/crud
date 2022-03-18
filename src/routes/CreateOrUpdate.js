@@ -68,12 +68,12 @@ function CreateOrUpdate() {
   return (
     <React.Fragment>
       <ContentBox>
-        <Title>{id ? 'Editar Tarefa' : 'Criar Tarefa'}</Title>
         <Form
           onSubmit={
             id ? handleSubmit(handleUpdate) : handleSubmit(handleCreate)
           }
         >
+          <Title>{id ? 'Editar Tarefa' : 'Criar Tarefa'}</Title>
           <Controller
             name="title"
             control={control}
